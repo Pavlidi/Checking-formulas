@@ -24,6 +24,53 @@ int main_menu()                                                 // Функци�
     return choice_mm;
 }
 
+string AlgebraicExpression(int Type)
+{
+    string Answer;
+    Formula a[8];
+    int unit;
+
+    a[0].formula = "\\item     $$ax^2+bx+c";
+    a[0].answer = "\\item     $$a(x-x_1)(x-x_2)";
+
+    a[1].formula = "\\item     $$(a+b)^2";
+    a[1].answer = "\\item     $$a^2+2ab+b^2";
+
+    a[2].formula = "\\item     $$(a-b)^2)";
+    a[2].answer = "\\item     $$a^2-2ab+b^2";
+
+    a[3].formula = "\\item     $$a^2-b^2";
+    a[3].answer = "\\item     $$(a-b)(a+b)";
+
+    a[4].formula = "\\item     $$(a+b)^3";
+    a[4].answer = "\\item     $$a^3+3a^2b+3ab^2+b^3";
+
+    a[5].formula = "\\item     $$(a-b)^3";
+    a[5].answer = "\\item     $$a^3-3a^2b+3ab^2-b^3";
+
+    a[6].formula = "\\item     $$a^3+b^3";
+    a[6].answer = "\\item     $$(a+b)(a^2-ab+b^2)";
+
+    a[7].formula = "\\item     $$a^3-b^3";
+    a[7].answer = "\\item     $$(a-b)(a^2+ab+b^2)";
+
+    if(Type == 1)
+    {
+        unit = rand()%8;
+        if(rand() % 2 == 0)
+        {
+            cout << a[unit].formula << "= $$    \n" << endl;
+            Answer =  a[unit].answer + "$$  \n";
+        }
+        else
+        {
+            cout << a[unit].answer << "= $$    \n" << endl;
+            Answer =  a[unit].formula + "$$  \n";
+        }
+    }
+    return Answer;
+}
+
 int main()
 {
     setlocale(LC_ALL, "ru");
@@ -184,6 +231,26 @@ int main()
                                 break;
                             }
                         }while(choice != 0);
+                        choice = -1;
+                        break;
+
+                        case 69:
+                        cout << "\033[2J\033[1;1H";
+                        int Count = 0;
+                        if(count_task[0] != 0)
+                        {
+                            for(int i = 0; i < count_task[0]; i++)
+                            {
+                                Answers = Answers + AlgebraicExpression(1);
+                                Count++;
+                            }
+                            count_task[0] = 0;
+                        }
+                        cout << endl << "\\end{enumerate}" << endl << "\\newpage \n {\\centering \\subsubsection*{Ответы}} \n \\begin{enumerate} \n" << Answers << endl << "\\end{enumerate}" << endl << endl;
+                        Answers = "";
+                        cout << "0. Назад" << endl;
+                        cout << "Ваш выбор: ";
+                        cin >> choice;
                         choice = -1;
                         break;
                     }
